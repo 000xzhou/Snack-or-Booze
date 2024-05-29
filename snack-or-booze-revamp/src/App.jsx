@@ -45,7 +45,10 @@ function App() {
         <NavBar />
         <main>
           <Routes>
-            <Route path="/" element={<Home snacks={snacks} />} />
+            <Route
+              path="/"
+              element={<Home snacks={snacks} drinks={drinks} />}
+            />
             <Route
               path="/snacks"
               element={<FoodMenu snacks={snacks} title="Snacks" />}
