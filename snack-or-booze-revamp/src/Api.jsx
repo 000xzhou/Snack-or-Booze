@@ -18,7 +18,7 @@ class SnackOrBoozeApi {
 
   // Fetching drinks from fake API
   static async getDrinks() {
-    const result = await axios.get(`${BASE_API_URL}/snacks`);
+    const result = await axios.get(`${BASE_API_URL}/drinks`);
     return result.data;
   }
 }
