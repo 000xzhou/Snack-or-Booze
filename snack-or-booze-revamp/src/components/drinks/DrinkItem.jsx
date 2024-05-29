@@ -1,13 +1,12 @@
-import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import useCantFind from "../hooks/useCantFind";
+import { useParams } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardText } from "reactstrap";
 
 function DrinkItem({ items, cantFind }) {
   const { id } = useParams();
-  const navigate = useNavigate();
+  const drink = useCantFind(id, items, cantFind);
 
-  let drink = items.find((drink) => drink.id === id);
-  if (!drink) return navigate(cantFind);
+  if (!drink) return null;
 
   return (
     <section>
