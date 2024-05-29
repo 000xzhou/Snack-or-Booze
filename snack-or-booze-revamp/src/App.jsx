@@ -4,21 +4,35 @@ import "./static/App.css";
 import SnackOrBoozeApi from "./Api";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
-import FoodMenu from "./components/FoodMenu";
-import FoodItem from "./components/FoodItem";
+import FoodMenu from "./components/snacks/FoodMenu";
+import FoodItem from "./components/snacks/FoodItem";
+import DrinkMenu from "./components/drinks/DrinkMenu";
+import DrinkItem from "./components/drinks/DrinkItem";
 import NotFound from "./components/NotFound";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [snacks, setSnacks] = useState([]);
+  const [drinks, setDrinks] = useState([]);
 
   useEffect(() => {
-    async function getSnacks() {
-      let snacks = await SnackOrBoozeApi.getSnacks();
-      setSnacks(snacks);
-      setIsLoading(false);
+    async function fetchData() {
+      try {
+        const [snacksData, drinksData] = await Promise.all([
+          SnackOrBoozeApi.getSnacks(),
+          SnackOrBoozeApi.getDrinks(),
+        ]);
+
+        setSnacks(snacksData);
+        setDrinks(drinksData);
+      } catch (error) {
+        console.error("Error fetching data", error);
+      } finally {
+        setIsLoading(false);
+      }
     }
-    getSnacks();
+
+    fetchData();
   }, []);
 
   if (isLoading) {
@@ -39,6 +53,14 @@ function App() {
             <Route
               path="/snacks/:id"
               element={<FoodItem items={snacks} cantFind="/snacks" />}
+            />
+            <Route
+              path="/drinks"
+              element={<DrinkMenu drinks={drinks} title="Drinks" />}
+            />
+            <Route
+              path="/drinks/:id"
+              element={<DrinkItem items={drinks} cantFind="/drinks" />}
             />
             <Route path="*" element={<NotFound />} />
           </Routes>
