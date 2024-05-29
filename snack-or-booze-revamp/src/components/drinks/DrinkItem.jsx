@@ -6,6 +6,7 @@ function DrinkItem({ items, cantFind }) {
   const { id } = useParams();
   const drink = useCantFind(id, items, cantFind);
 
+  // loads empty page before navigate
   if (!drink) return null;
 
   return (
