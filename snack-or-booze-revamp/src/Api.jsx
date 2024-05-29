@@ -10,22 +10,16 @@ const BASE_API_URL = "http://localhost:3000";
 */
 
 class SnackOrBoozeApi {
-  static async getSnacksAndDrinks() {
-    // Fetching both snacks and drinks from fake API
-    try {
-      const [getSnacks, getDrinks] = await Promise.all([
-        axios.get(`${BASE_API_URL}/snacks`),
-        axios.get(`${BASE_API_URL}/drinks`),
-      ]);
+  // Fetching snacks from fake API
+  static async getSnacks() {
+    const result = await axios.get(`${BASE_API_URL}/snacks`);
+    return result.data;
+  }
 
-      return {
-        snacks: getSnacks.data,
-        drinks: getDrinks.data,
-      };
-    } catch (error) {
-      console.error("Error fetching data", error);
-      throw error;
-    }
+  // Fetching drinks from fake API
+  static async getDrinks() {
+    const result = await axios.get(`${BASE_API_URL}/snacks`);
+    return result.data;
   }
 }
 

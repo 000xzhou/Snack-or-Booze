@@ -15,6 +15,7 @@ function App() {
   const [snacks, setSnacks] = useState([]);
   const [drinks, setDrinks] = useState([]);
 
+  // Fetching both snacks and drinks from fake API
   useEffect(() => {
     async function fetchData() {
       try {
