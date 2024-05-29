@@ -5,92 +5,43 @@ import {
   ListGroup,
   ListGroupItem,
 } from "reactstrap";
-import { useState } from "react";
-import axios from "axios";
+import useFormData from "../hooks/useFormData";
 
 function AddDrink() {
   // adding initial data for form data state
   const initialState = {
-    snackName: "",
+    drinkName: "",
     description: "",
     recipe: "",
     serve: "",
   };
-  const [formData, setFormData] = useState(initialState);
-  const [errors, setErrors] = useState({});
+  // add field for error handling
+  const fields = ["drinkName", "description", "recipe", "serve"];
 
-  // changing state of form
-  const handleChange = (e) => {
-    // changing value for state base on target name
-    setFormData((data) => ({ ...data, [e.target.name]: e.target.value }));
-
-    // setting error for that target names to false : no error
-    setErrors({
-      ...errors,
-      [e.target.name]: false,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // checking for empty data
-    const newErrors = {};
-    const fields = ["snackName", "description", "recipe", "serve"];
-
-    // checks each data file if there is any errors
-    fields.forEach((field) => {
-      if (formData[field].trim() === "") {
-        newErrors[field] = true;
-      }
-    });
-
-    // checks if error obj is empty : if there is any errors
-    if (Object.keys(newErrors).length === 0) {
-      try {
-        // Post to server after form submit
-        const response = await axios.post("http://localhost:3000/drinks", {
-          id: formData.snackName,
-          name: formData.snackName,
-          description: formData.description,
-          recipe: formData.recipe,
-          serve: formData.serve,
-        });
-        console.log("Snack added:", response.data);
-        // Reset the snack state after a successful post
-        setFormData(initialState);
-      } catch (error) {
-        console.error("Error adding snack:", error);
-      }
-    } else {
-      // execute errors
-      setErrors(newErrors);
-    }
-  };
-
-  // handle styling
-  const handleStyling = (name) => {
-    return errors[name] ? "input-error" : "";
-  };
+  const [formData, handleChange, handleStyling, handleSubmit] = useFormData(
+    "drinks",
+    initialState,
+    fields
+  );
 
   return (
     <section>
       <Card>
         <CardBody>
           <CardTitle className="font-weight-bold text-center">
-            Add a new snack!
+            Add a new drink!
           </CardTitle>
           <ListGroup>
             <form onSubmit={handleSubmit}>
               <ListGroupItem>
-                <label htmlFor="snackName">Snack Name:</label>
+                <label htmlFor="drinkName">Drink Name:</label>
                 <input
                   type="text"
-                  className={handleStyling("snackName")}
-                  id="snackName"
-                  name="snackName"
-                  placeholder="Enter a snack name"
-                  value={formData.snackName}
+                  className={handleStyling("drinkName")}
+                  id="drinkName"
+                  name="drinkName"
+                  placeholder="Enter a drink name"
+                  value={formData.drinkName}
                   onChange={handleChange}
                 />
               </ListGroupItem>
@@ -101,7 +52,7 @@ function AddDrink() {
                   className={handleStyling("description")}
                   id="description"
                   name="description"
-                  placeholder="Enter the snack description"
+                  placeholder="Enter the drink description"
                   value={formData.description}
                   onChange={handleChange}
                 />
@@ -113,7 +64,7 @@ function AddDrink() {
                   className={handleStyling("recipe")}
                   id="recipe"
                   name="recipe"
-                  placeholder="Enter the snack recipe"
+                  placeholder="Enter the drink recipe"
                   value={formData.recipe}
                   onChange={handleChange}
                 />
@@ -125,13 +76,13 @@ function AddDrink() {
                   id="serve"
                   className={handleStyling("serve")}
                   name="serve"
-                  placeholder="Enter how the snack be serve"
+                  placeholder="Enter how the drink be serve"
                   value={formData.serve}
                   onChange={handleChange}
                 />
               </ListGroupItem>
               <ListGroupItem>
-                <button>Submit Snack</button>
+                <button>Submit Drink</button>
               </ListGroupItem>
             </form>
           </ListGroup>
