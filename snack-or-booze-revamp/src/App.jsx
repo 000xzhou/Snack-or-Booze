@@ -54,30 +54,36 @@ function App() {
               path="/"
               element={<Home snacks={snacks} drinks={drinks} />}
             />
-            <Route
-              path="/snacks"
-              element={<FoodMenu snacks={snacks} title="Snacks" />}
-            />
-            <Route
-              path="/snacks/:id"
-              element={<FoodItem items={snacks} cantFind="/snacks" />}
-            />
-            <Route
-              path="/snacks/new"
-              element={<AddFood items={snacks} title="New Snacks" />}
-            />
-            <Route
-              path="/drinks"
-              element={<DrinkMenu drinks={drinks} title="Drinks" />}
-            />
-            <Route
-              path="/drinks/:id"
-              element={<DrinkItem items={drinks} cantFind="/drinks" />}
-            />
-            <Route
-              path="/drinks/new"
-              element={<AddDrink items={drinks} title="New Drink" />}
-            />
+
+            <Route path="/snacks">
+              <Route
+                index
+                element={<FoodMenu snacks={snacks} title="Snacks" />}
+              />
+              <Route
+                path=":id"
+                element={<FoodItem items={snacks} cantFind="/snacks" />}
+              />
+              <Route
+                path="new"
+                element={<AddFood items={snacks} title="New Snack" />}
+              />
+            </Route>
+
+            <Route path="/drinks">
+              <Route
+                index
+                element={<DrinkMenu drinks={drinks} title="Drinks" />}
+              />
+              <Route
+                path=":id"
+                element={<DrinkItem items={drinks} cantFind="/drinks" />}
+              />
+              <Route
+                path="new"
+                element={<AddDrink items={drinks} title="New Drink" />}
+              />
+            </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
