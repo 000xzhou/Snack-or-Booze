@@ -15,7 +15,13 @@ function NavBar() {
             <NavLink to="/snacks">Snacks</NavLink>
           </NavItem>
           <NavItem>
+            <NavLink to="/snacks/new">Add Snacks</NavLink>
+          </NavItem>
+          <NavItem>
             <NavLink to="/drinks">Drinks</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink to="/drinks/new">Add Drink</NavLink>
           </NavItem>
         </Nav>
       </Navbar>

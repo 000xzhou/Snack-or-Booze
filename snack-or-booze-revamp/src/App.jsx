@@ -4,11 +4,15 @@ import "./static/App.css";
 import SnackOrBoozeApi from "./Api";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
+import NotFound from "./components/NotFound";
+// food items
 import FoodMenu from "./components/snacks/FoodMenu";
 import FoodItem from "./components/snacks/FoodItem";
+import AddFood from "./components/snacks/AddFood";
+// drink items
 import DrinkMenu from "./components/drinks/DrinkMenu";
 import DrinkItem from "./components/drinks/DrinkItem";
-import NotFound from "./components/NotFound";
+import AddDrink from "./components/drinks/AddDrink";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -59,12 +63,20 @@ function App() {
               element={<FoodItem items={snacks} cantFind="/snacks" />}
             />
             <Route
+              path="/snacks/new"
+              element={<AddFood items={snacks} title="New Snacks" />}
+            />
+            <Route
               path="/drinks"
               element={<DrinkMenu drinks={drinks} title="Drinks" />}
             />
             <Route
               path="/drinks/:id"
               element={<DrinkItem items={drinks} cantFind="/drinks" />}
+            />
+            <Route
+              path="/drinks/new"
+              element={<AddDrink items={drinks} title="New Drink" />}
             />
             <Route path="*" element={<NotFound />} />
           </Routes>
