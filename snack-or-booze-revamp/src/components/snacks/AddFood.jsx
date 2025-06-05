@@ -10,13 +10,13 @@ import useFormData from "../hooks/useFormData";
 function AddFood() {
   // adding initial data for form data state
   const initialState = {
-    snackName: "",
+    name: "",
     description: "",
     recipe: "",
     serve: "",
   };
   // add field for error handling
-  const fields = ["snackName", "description", "recipe", "serve"];
+  const fields = ["name", "description", "recipe", "serve"];
 
   const [formData, handleChange, handleStyling, handleSubmit] = useFormData(
     "snacks",
@@ -34,14 +34,14 @@ function AddFood() {
           <ListGroup>
             <form onSubmit={handleSubmit}>
               <ListGroupItem>
-                <label htmlFor="snackName">Snack Name:</label>
+                <label htmlFor="name">Snack Name:</label>
                 <input
                   type="text"
-                  className={handleStyling("snackName")}
-                  id="snackName"
-                  name="snackName"
+                  className={handleStyling("name")}
+                  id="name"
+                  name="name"
                   placeholder="Enter a snack name"
-                  value={formData.snackName}
+                  value={formData.name}
                   onChange={handleChange}
                 />
               </ListGroupItem>
