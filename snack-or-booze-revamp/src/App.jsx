@@ -2,17 +2,17 @@ import { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./static/App.css";
 import SnackOrBoozeApi from "./Api";
-import Home from "./components/Home";
-import NavBar from "./components/NavBar";
-import NotFound from "./components/NotFound";
+import Home from "./componentsNew/Home";
+import NavBar from "./componentsNew/NavBar";
+import NotFound from "./componentsNew/NotFound";
 // food items
-import FoodMenu from "./components/snacks/FoodMenu";
-import FoodItem from "./components/snacks/FoodItem";
-import AddFood from "./components/snacks/AddFood";
+import FoodMenu from "./componentsNew/snacks/FoodMenu";
+import FoodItem from "./componentsNew/snacks/FoodItem";
+import AddFood from "./componentsNew/snacks/AddFood";
 // drink items
-import DrinkMenu from "./components/drinks/DrinkMenu";
-import DrinkItem from "./components/drinks/DrinkItem";
-import AddDrink from "./components/drinks/AddDrink";
+import DrinkMenu from "./componentsNew/drinks/DrinkMenu";
+import DrinkItem from "./componentsNew/drinks/DrinkItem";
+import AddDrink from "./componentsNew/drinks/AddDrink";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,23 +20,23 @@ function App() {
   const [drinks, setDrinks] = useState([]);
 
   // Fetching both snacks and drinks from fake API
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const [snacksData, drinksData] = await Promise.all([
-          SnackOrBoozeApi.getSnacks(),
-          SnackOrBoozeApi.getDrinks(),
-        ]);
+  const fetchData = async () => {
+    try {
+      const [snacksData, drinksData] = await Promise.all([
+        SnackOrBoozeApi.getSnacks(),
+        SnackOrBoozeApi.getDrinks(),
+      ]);
 
-        setSnacks(snacksData);
-        setDrinks(drinksData);
-      } catch (error) {
-        console.error("Error fetching data", error);
-      } finally {
-        setIsLoading(false);
-      }
+      setSnacks(snacksData);
+      setDrinks(drinksData);
+    } catch (error) {
+      console.error("Error fetching data", error);
+    } finally {
+      setIsLoading(false);
     }
-
+  };
+  // grab fake api on load
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -64,7 +64,10 @@ function App() {
                 path=":id"
                 element={<FoodItem items={snacks} cantFind="/snacks" />}
               />
-              <Route path="new" element={<AddFood title="New Snack" />} />
+              <Route
+                path="new"
+                element={<AddFood title="New Snack" refetch={fetchData} />}
+              />
             </Route>
 
             <Route path="/drinks">
@@ -76,7 +79,10 @@ function App() {
                 path=":id"
                 element={<DrinkItem items={drinks} cantFind="/drinks" />}
               />
-              <Route path="new" element={<AddDrink title="New Drink" />} />
+              <Route
+                path="new"
+                element={<AddDrink title="New Drink" refetch={fetchData} />}
+              />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
