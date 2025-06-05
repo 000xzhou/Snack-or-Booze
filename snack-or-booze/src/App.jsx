@@ -2,17 +2,17 @@ import { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./static/App.css";
 import SnackOrBoozeApi from "./Api";
-import Home from "./componentsNew/Home";
-import NavBar from "./componentsNew/NavBar";
-import NotFound from "./componentsNew/NotFound";
+import Home from "./components/Home";
+import NavBar from "./components/NavBar";
+import NotFound from "./components/NotFound";
 // food items
-import FoodMenu from "./componentsNew/snacks/FoodMenu";
-import FoodItem from "./componentsNew/snacks/FoodItem";
-import AddFood from "./componentsNew/snacks/AddFood";
+import FoodMenu from "./components/snacks/FoodMenu";
+import FoodItem from "./components/snacks/FoodItem";
+import AddFood from "./components/snacks/AddFood";
 // drink items
-import DrinkMenu from "./componentsNew/drinks/DrinkMenu";
-import DrinkItem from "./componentsNew/drinks/DrinkItem";
-import AddDrink from "./componentsNew/drinks/AddDrink";
+import DrinkMenu from "./components/drinks/DrinkMenu";
+import DrinkItem from "./components/drinks/DrinkItem";
+import AddDrink from "./components/drinks/AddDrink";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
